@@ -1,12 +1,12 @@
 {
 	"info": {
-		"_postman_id": "5910cfdb-55d9-4dd5-ab2f-6ce6979fdbf5",
+		"_postman_id": "4f413d9e-67b4-44d4-a957-87d7283e2785",
 		"name": "Sprint_03_Pedro",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create State",
+			"name": "Criando estado",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -25,7 +25,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"Olá\",\r\n    \"region\":\"NORTe\",\r\n    \"population\":\"555555\",\r\n    \"capital\":\"                    \",\r\n    \"area\":\"8000\"\r\n}"
+					"raw": "{\r\n    \"name\":\"Fallout\",\r\n    \"region\":\"sudEsTe\",\r\n    \"population\":\"99999999\",\r\n    \"capital\":\"Capital Wasteland\",\r\n    \"area\":\"800000\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/states",
@@ -43,7 +43,81 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve All States",
+			"name": "Falha ao criar estado com parametro name (vazio) e area (negativa)",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request do tipo Json",
+						"type": "default"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Resposta em Português",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"\",\r\n    \"region\":\"sudEsTe\",\r\n    \"population\":\"99999999\",\r\n    \"capital\":\"Capital Wasteland\",\r\n    \"area\":\"-1\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Falha ao criar estado com erro no parametro regiao",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request do tipo Json",
+						"type": "default"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Resposta em Português",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Fallout\",\r\n    \"region\":\"suul\",\r\n    \"population\":\"99999999\",\r\n    \"capital\":\"Capital Wasteland\",\r\n    \"area\":\"5000\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retornando todos os estados sem filtro",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -76,7 +150,7 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve States Filter By Region",
+			"name": "Retornado todos os estados com filtro na regiao",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -94,7 +168,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/states?region=norte",
+					"raw": "http://localhost:8080/api/states?region=noRte",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -107,7 +181,7 @@
 					"query": [
 						{
 							"key": "region",
-							"value": "norte"
+							"value": "noRte"
 						}
 					]
 				}
@@ -115,7 +189,7 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve States Filter By Population",
+			"name": "Retornando todos os com estados ordenação em população",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -133,7 +207,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/states?sort=population,desc",
+					"raw": "http://localhost:8080/api/states?sort=population%2Cdesc",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -146,7 +220,7 @@
 					"query": [
 						{
 							"key": "sort",
-							"value": "population,desc"
+							"value": "population%2Cdesc"
 						}
 					]
 				}
@@ -154,7 +228,7 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve States Filter By Area",
+			"name": "Retornando todos os estados com ordenação na area e por região",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -197,7 +271,7 @@
 			"response": []
 		},
 		{
-			"name": "Retrieve State By Id",
+			"name": "Erro no parametro da regiao",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -215,7 +289,85 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/states/5",
+					"raw": "http://localhost:8080/api/states?region=nort",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "nort"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Erro no parametro de ordenação",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states?sort=arex",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "arex"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Retornando apenas um unico estado com parametro id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -224,14 +376,14 @@
 					"path": [
 						"api",
 						"states",
-						"5"
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete State By Id",
+			"name": "Deletando o estado com parametro id",
 			"request": {
 				"method": "DELETE",
 				"header": [
@@ -249,7 +401,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/states/4",
+					"raw": "http://localhost:8080/api/states/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -258,14 +410,14 @@
 					"path": [
 						"api",
 						"states",
-						"4"
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update State By Id",
+			"name": "Atualizando o estado com parametro id",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -284,10 +436,10 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"abc\",\r\n    \"region\":\"sudeste\",\r\n    \"population\":\"555555\",\r\n    \"capital\":\"WasteLand\",\r\n    \"area\":\"80\"\r\n}"
+					"raw": "{\r\n    \"name\":\"CyberPunk\",\r\n    \"region\":\"sudEste\",\r\n    \"population\":\"555555\",\r\n    \"capital\":\"Night City\",\r\n    \"area\":\"80\"\r\n}"
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/states/5",
+					"raw": "http://localhost:8080/api/states/1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -296,7 +448,7 @@
 					"path": [
 						"api",
 						"states",
-						"5"
+						"1"
 					]
 				}
 			},
