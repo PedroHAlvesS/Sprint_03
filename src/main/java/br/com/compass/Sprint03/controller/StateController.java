@@ -18,14 +18,15 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
 import java.net.URI;
+import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/states")
 public class StateController {
     @Autowired
     StateRepository stateRepository;
 
-    @PostMapping("/states")
+    @PostMapping
     @Transactional
     public ResponseEntity<StateDto> createState(@RequestBody @Valid StateForm form, UriComponentsBuilder uriBuilder) {
         State state = form.toState();
@@ -34,7 +35,7 @@ public class StateController {
         return ResponseEntity.created(uri).body(new StateDto(state));
     }
 
-    @GetMapping("/states")
+    @GetMapping
     public Page<StateDto> getAllStates(@RequestParam(required = false)String region, Pageable pageable) {
         if (region == null) {
             Page<State> states = stateRepository.findAll(pageable);
@@ -45,4 +46,14 @@ public class StateController {
             return StateDto.toStateDto(states);
         }
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StateDto> getStateFilterById(@PathVariable Long id) {
+        Optional<State> stateOptional = stateRepository.findById(id);
+        if (stateOptional.isPresent()) {
+            return ResponseEntity.ok(new StateDto(stateOptional.get()));
+        }
+        return ResponseEntity.notFound().build();
+    }
+    
 }
