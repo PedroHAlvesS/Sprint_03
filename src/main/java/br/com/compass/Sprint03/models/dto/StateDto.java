@@ -1,6 +1,8 @@
 package br.com.compass.Sprint03.models.dto;
 
+import br.com.compass.Sprint03.models.domain.Region;
 import br.com.compass.Sprint03.models.entity.State;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -46,7 +48,7 @@ public class StateDto {
         return area;
     }
 
-    public static List<StateDto> toStateDto(List<State> states) {
-        return states.stream().map(StateDto::new).collect(Collectors.toList());
+    public static Page<StateDto> toStateDto(Page<State> states) {
+        return states.map(StateDto::new);
     }
 }

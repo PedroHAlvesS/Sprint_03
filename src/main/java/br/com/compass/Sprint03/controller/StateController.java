@@ -1,10 +1,13 @@
 package br.com.compass.Sprint03.controller;
 
+import br.com.compass.Sprint03.models.domain.Region;
 import br.com.compass.Sprint03.models.dto.StateDto;
 import br.com.compass.Sprint03.models.entity.State;
 import br.com.compass.Sprint03.models.form.StateForm;
 import br.com.compass.Sprint03.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +22,6 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api")
 public class StateController {
-
     @Autowired
     StateRepository stateRepository;
 
@@ -33,8 +35,14 @@ public class StateController {
     }
 
     @GetMapping("/states")
-    public List<StateDto> getAllStates() {
-        List<State> states = stateRepository.findAll();
-        return StateDto.toStateDto(states);
+    public Page<StateDto> getAllStates(@RequestParam(required = false)String region, Pageable pageable) {
+        if (region == null) {
+            Page<State> states = stateRepository.findAll(pageable);
+            return StateDto.toStateDto(states);
+        } else {
+            String regionDB = Region.valueOf(region.toUpperCase()).getNameCapitalize();
+            Page<State> states = stateRepository.findByRegion(regionDB, pageable);
+            return StateDto.toStateDto(states);
+        }
     }
 }
