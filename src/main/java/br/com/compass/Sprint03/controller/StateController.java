@@ -56,11 +56,23 @@ public class StateController {
         return ResponseEntity.notFound().build();
     }
     @DeleteMapping("/{id}")
+    @Transactional
     public ResponseEntity<StateDto> removeStateById(@PathVariable Long id) {
         Optional<State> stateOptional = stateRepository.findById(id);
         if (stateOptional.isPresent()) {
             stateRepository.deleteById(id);
             return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<StateDto> updateState(@PathVariable Long id, @RequestBody @Valid StateForm form) {
+        Optional<State> stateOptional = stateRepository.findById(id);
+        if (stateOptional.isPresent()) {
+            form.updateState(stateOptional.get());
+            return ResponseEntity.ok(new StateDto(stateOptional.get()));
         }
         return ResponseEntity.notFound().build();
     }

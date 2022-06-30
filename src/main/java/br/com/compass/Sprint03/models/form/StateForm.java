@@ -41,7 +41,20 @@ public class StateForm {
     private int area;
 
     public State toState() {
-        String newRegion = Region.valueOf(this.region.toUpperCase()).getNameCapitalize();
+        String newRegion = standartRegion(this.region);
         return new State(this.name, newRegion, this.population, this.capital, this.area);
+    }
+
+    public State updateState(State state) {
+        state.setName(this.name);
+        state.setRegion(standartRegion(this.region));
+        state.setPopulation(this.population);
+        state.setCapital(this.capital);
+        state.setArea(this.area);
+        return state;
+    }
+
+    public static String standartRegion(String region) {
+        return Region.valueOf(region.toUpperCase()).getNameCapitalize();
     }
 }
