@@ -5,6 +5,7 @@ import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.data.mapping.PropertyReferenceException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -22,7 +23,7 @@ public class ExceptionsStateHandler {
     @Autowired
     private MessageSource messageSource;
 
-    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(code = HttpStatus.CONFLICT)
     @ExceptionHandler(PersistenceException.class)
     public ExceptionDto handleUniqueError(PersistenceException exception) {
         String message = exception.getMessage();
@@ -40,5 +41,19 @@ public class ExceptionsStateHandler {
             dto.add(error);
         });
         return dto;
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ExceptionDto handleIllegalArgument(IllegalArgumentException exception) {
+        String message = "Region not Found";
+        return new ExceptionDto(message, "Invalid Region");
+    }
+
+    @ResponseStatus(code = HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(PropertyReferenceException.class)
+    public ExceptionDto handlePropertyReferenceException(PropertyReferenceException exception) {
+        String message = exception.getMessage();
+        return new ExceptionDto(message, "Invalid Property");
     }
 }
