@@ -8,8 +8,37 @@
 		{
 			"name": "Create State",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Request do tipo Json",
+						"type": "default"
+					},
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Resposta em Português",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"Olá\",\r\n    \"region\":\"NORTe\",\r\n    \"population\":\"555555\",\r\n    \"capital\":\"                    \",\r\n    \"area\":\"8000\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					]
+				}
 			},
 			"response": []
 		},
@@ -17,7 +46,32 @@
 			"name": "Retrieve All States",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					]
+				}
 			},
 			"response": []
 		},
@@ -25,7 +79,38 @@
 			"name": "Retrieve States Filter By Region",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states?region=norte",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					],
+					"query": [
+						{
+							"key": "region",
+							"value": "norte"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -33,7 +118,38 @@
 			"name": "Retrieve States Filter By Population",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states?sort=population,desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "population,desc"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -41,7 +157,42 @@
 			"name": "Retrieve States Filter By Area",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states?sort=area,desc&region=Centro_OesTE",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					],
+					"query": [
+						{
+							"key": "sort",
+							"value": "area,desc"
+						},
+						{
+							"key": "region",
+							"value": "Centro_OesTE"
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -49,23 +200,105 @@
 			"name": "Retrieve State By Id",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states",
+						"5"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Delete State By Id",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/api/states/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states",
+						"4"
+					]
+				}
 			},
 			"response": []
 		},
 		{
 			"name": "Update State By Id",
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"abc\",\r\n    \"region\":\"sudeste\",\r\n    \"population\":\"555555\",\r\n    \"capital\":\"WasteLand\",\r\n    \"area\":\"80\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/states/5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states",
+						"5"
+					]
+				}
 			},
 			"response": []
 		}
