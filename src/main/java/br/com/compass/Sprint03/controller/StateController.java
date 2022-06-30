@@ -12,6 +12,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.transaction.Transactional;
 
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.net.URI;
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class StateController {
@@ -21,10 +29,11 @@ public class StateController {
 
     @PostMapping("/states")
     @Transactional
-    public ResponseEntity<?> createState(@RequestBody StateForm form) {
+    public ResponseEntity<StateDto> createState(@RequestBody @Valid StateForm form, UriComponentsBuilder uriBuilder) {
         State state = form.toState();
         stateRepository.save(state);
-        return ResponseEntity.ok().build();
+        URI uri = uriBuilder.path("/api/states/{id}").buildAndExpand(state.getId()).toUri();
+        return ResponseEntity.created(uri).body(new StateDto(state));
     }
 
     
