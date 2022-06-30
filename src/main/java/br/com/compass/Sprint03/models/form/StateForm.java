@@ -3,18 +3,19 @@ package br.com.compass.Sprint03.models.form;
 import br.com.compass.Sprint03.models.domain.Region;
 import br.com.compass.Sprint03.models.entity.State;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
 
 public class StateForm {
-    @NotNull @NotEmpty
+    @NotBlank
     private String name;
-    @NotNull @NotEmpty
+    @NotBlank
     private String region;
     @PositiveOrZero
     private int population;
-    @NotNull @NotEmpty
+    @NotBlank
     private String capital;
 
     public String getName() {

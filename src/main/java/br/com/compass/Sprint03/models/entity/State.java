@@ -3,7 +3,9 @@ package br.com.compass.Sprint03.models.entity;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "states", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 public class State {
+    @Column(unique = true, name = "name")
     public void setName(String name) {
         this.name = name;
     }
