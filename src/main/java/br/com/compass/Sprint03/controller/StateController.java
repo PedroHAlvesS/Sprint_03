@@ -1,16 +1,15 @@
 package br.com.compass.Sprint03.controller;
 
+import br.com.compass.Sprint03.models.dto.StateDto;
 import br.com.compass.Sprint03.models.entity.State;
 import br.com.compass.Sprint03.models.form.StateForm;
 import br.com.compass.Sprint03.repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -36,5 +35,9 @@ public class StateController {
         return ResponseEntity.created(uri).body(new StateDto(state));
     }
 
-    
+    @GetMapping("/states")
+    public List<StateDto> getAllStates() {
+        List<State> states = stateRepository.findAll();
+        return StateDto.toStateDto(states);
+    }
 }

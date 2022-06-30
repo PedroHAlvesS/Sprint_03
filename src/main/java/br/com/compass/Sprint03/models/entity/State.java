@@ -26,4 +26,28 @@ public class State {
         this.capital = capital;
         this.area = area;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+
+    public int getPopulation() {
+        return population;
+    }
+
+    public String getCapital() {
+        return capital;
+    }
+
+    public int getArea() {
+        return area;
+    }
 }
