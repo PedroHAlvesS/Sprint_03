@@ -4,6 +4,26 @@ import javax.persistence.*;
 
 @Entity
 public class State {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRegion(String region) {
+        this.region = region;
+    }
+
+    public void setPopulation(int population) {
+        this.population = population;
+    }
+
+    public void setCapital(String capital) {
+        this.capital = capital;
+    }
+
+    public void setArea(int area) {
+        this.area = area;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
