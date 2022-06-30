@@ -1,5 +1,6 @@
 package br.com.compass.Sprint03.models.form;
 
+import br.com.compass.Sprint03.models.domain.Region;
 import br.com.compass.Sprint03.models.entity.State;
 
 import javax.validation.constraints.NotEmpty;
@@ -40,6 +41,7 @@ public class StateForm {
     private int area;
 
     public State toState() {
-        return new State(this.name, this.region.toUpperCase(), this.population, this.capital, this.area);
+        String newRegion = Region.valueOf(this.region.toUpperCase()).getNameCapitalize();
+        return new State(this.name, newRegion, this.population, this.capital, this.area);
     }
 }

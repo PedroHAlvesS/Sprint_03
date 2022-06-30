@@ -1,7 +1,5 @@
 package br.com.compass.Sprint03.models.entity;
 
-import br.com.compass.Sprint03.models.domain.Region;
-
 import javax.persistence.*;
 
 @Entity
@@ -21,7 +19,7 @@ public class State {
 
     public State(String name, String region, int population, String capital, int area) {
         this.name = name;
-        this.region = Region.valueOf(region).getNameCapitalize();
+        this.region = region;
         this.population = population;
         this.capital = capital;
         this.area = area;

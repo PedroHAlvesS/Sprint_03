@@ -1,5 +1,6 @@
 package br.com.compass.Sprint03.controller;
 
+import br.com.compass.Sprint03.models.domain.Region;
 import br.com.compass.Sprint03.models.dto.StateDto;
 import br.com.compass.Sprint03.models.entity.State;
 import br.com.compass.Sprint03.models.form.StateForm;
@@ -19,7 +20,6 @@ import java.net.URI;
 @RestController
 @RequestMapping("/api")
 public class StateController {
-
     @Autowired
     StateRepository stateRepository;
 
@@ -33,8 +33,12 @@ public class StateController {
     }
 
     @GetMapping("/states")
-    public List<StateDto> getAllStates() {
+    public List<StateDto> getAllStates(@RequestParam(required = false)String region) {
         List<State> states = stateRepository.findAll();
+        if (!(region == null)) {
+            String regionDB = Region.valueOf(region.toUpperCase()).getNameCapitalize();
+            states = stateRepository.findByRegion(regionDB);
+        }
         return StateDto.toStateDto(states);
     }
 }
