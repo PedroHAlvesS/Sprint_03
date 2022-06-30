@@ -1,5 +1,6 @@
 package br.com.compass.Sprint03.models.dto;
 
+import br.com.compass.Sprint03.models.domain.Region;
 import br.com.compass.Sprint03.models.entity.State;
 
 import java.util.List;
