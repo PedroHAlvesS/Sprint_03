@@ -55,5 +55,13 @@ public class StateController {
         }
         return ResponseEntity.notFound().build();
     }
-    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<StateDto> removeStateById(@PathVariable Long id) {
+        Optional<State> stateOptional = stateRepository.findById(id);
+        if (stateOptional.isPresent()) {
+            stateRepository.deleteById(id);
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
