@@ -40,6 +40,6 @@ public class StateForm {
     private int area;
 
     public State toState() {
-        return new State(this.name, this.region, this.population, this.capital, this.area);
+        return new State(this.name, this.region.toUpperCase(), this.population, this.capital, this.area);
     }
 }
