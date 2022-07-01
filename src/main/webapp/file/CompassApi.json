@@ -1,0 +1,401 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Api Compass Sprint 3",
+    "description": "Api da Sprint 3 da Compass, para controlar os registro de estados brasileiro",
+    "contact": {
+      "email": "pedro.silva.pb@compass.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:8080/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Exercicio",
+      "description": "Endpoints do exercício"
+    }
+  ],
+  "paths": {
+    "/states": {
+      "get": {
+        "tags": [
+          "Exercicio"
+        ],
+        "summary": "procura todos os estados",
+        "description": "Retorna todos os estados registrado no banco, é possível passar parâmetros para filtrar os resultados\n",
+        "operationId": "getAllStates",
+        "parameters": [
+          {
+            "name": "region",
+            "in": "query",
+            "description": "parâmetro opcional para filtrar por região, não é case sensitive",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "nordeste",
+                "norte",
+                "sul",
+                "sudeste",
+                "centro_oeste"
+              ]
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Número da página da consulta",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "description": "Número máximo de registro da página",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Ordenar pelo parâmetro solicitado. É possível ordernar em ordem descrescente colocando (\",desc\") depois do parâmetro",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "population",
+                "area",
+                "population,desc",
+                "area,desc"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorno dos estados de acordo com os parâmetros",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PageableState"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Erro ao inserir parâmetros"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Exercicio"
+        ],
+        "summary": "Adiciona estados",
+        "description": "Adiciona algum estado ao sistema",
+        "operationId": "createState",
+        "requestBody": {
+          "description": "Estado para ser adicionado",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StateForm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Estado criado com sucesso"
+          },
+          "400": {
+            "description": "Parâmetros de estado inválido"
+          },
+          "409": {
+            "description": "Estado com mesmo nome já existente"
+          }
+        }
+      }
+    },
+    "/states/{id}": {
+      "get": {
+        "tags": [
+          "Exercicio"
+        ],
+        "summary": "Retorna apenas o dados do Estado solicitado pelo Id",
+        "description": "Retorna todos os dados do estado procurado pelo Id\n",
+        "operationId": "getStateFilterById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Estado ID",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Retorno do estado solicitado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Não foi encontrado esse estado"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Exercicio"
+        ],
+        "summary": "Atualiza os dados do estado",
+        "description": "Atualiza no banco de dados os dados do estado",
+        "operationId": "updateState",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Estado ID",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Novos dados do estado",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StateForm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Retorno dos novos dados do estado atualizado",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/State"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Parâmetro inválido"
+          },
+          "404": {
+            "description": "Não foi encontrado esse estado"
+          },
+          "409": {
+            "description": "Estado com mesmo nome já existente"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Exercicio"
+        ],
+        "summary": "Deleta esse estado do banco",
+        "description": "deleta do banco de dados o estado registrado\n",
+        "operationId": "removeStateById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Estado ID",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "deletado com sucesso"
+          },
+          "404": {
+            "description": "Não foi encontrado esse estado"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "PageableState": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/State"
+            }
+          },
+          "pageable": {
+            "$ref": "#/components/schemas/pageable"
+          },
+          "last": {
+            "type": "boolean"
+          },
+          "totalPages": {
+            "type": "integer"
+          },
+          "totalElements": {
+            "type": "integer"
+          },
+          "size": {
+            "type": "integer"
+          },
+          "number": {
+            "type": "integer"
+          },
+          "sort": {
+            "$ref": "#/components/schemas/sort"
+          },
+          "firt": {
+            "type": "boolean"
+          },
+          "numberOfElements": {
+            "type": "integer"
+          },
+          "empty": {
+            "type": "boolean"
+          }
+        }
+      },
+      "StateForm": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Minas Gerais"
+          },
+          "region": {
+            "type": "string",
+            "example": "Sudeste",
+            "enum": [
+              "Sudeste",
+              "Nordeste",
+              "Norte",
+              "Centro_Oeste",
+              "Sul"
+            ]
+          },
+          "population": {
+            "type": "integer",
+            "example": 50000
+          },
+          "capital": {
+            "type": "string",
+            "example": "Belo Horizonte"
+          },
+          "area": {
+            "type": "integer",
+            "example": 30000
+          }
+        },
+        "description": "O parâmetro region não é case sensitive"
+      },
+      "State": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/StateForm"
+          },
+          {
+            "required": [
+              "id"
+            ],
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "integer",
+                "example": 1
+              }
+            }
+          }
+        ]
+      },
+      "sort": {
+        "type": "object",
+        "properties": {
+          "empty": {
+            "type": "boolean"
+          },
+          "sorted": {
+            "type": "boolean"
+          },
+          "unsorted": {
+            "type": "boolean"
+          }
+        }
+      },
+      "pageable": {
+        "type": "object",
+        "properties": {
+          "sort": {
+            "$ref": "#/components/schemas/sort"
+          },
+          "offset": {
+            "type": "integer"
+          },
+          "pageSize": {
+            "type": "integer"
+          },
+          "pageNumber": {
+            "type": "integer"
+          },
+          "unpaged": {
+            "type": "boolean"
+          },
+          "paged": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
