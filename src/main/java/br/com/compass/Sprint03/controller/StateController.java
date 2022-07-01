@@ -1,4 +1,4 @@
-package br.com.compass.Sprint03.models.dto.controller;
+package br.com.compass.Sprint03.controller;
 
 import br.com.compass.Sprint03.models.domain.Region;
 import br.com.compass.Sprint03.models.dto.StateDto;
