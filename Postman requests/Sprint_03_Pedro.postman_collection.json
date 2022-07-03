@@ -11,21 +11,58 @@
 				"method": "POST",
 				"header": [
 					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": "Request do tipo Json",
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
 						"type": "default"
 					},
 					{
-						"key": "Accept-Language",
-						"value": "pt-BR",
-						"description": "Resposta em Português",
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
 						"type": "default"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\":\"Fallout\",\r\n    \"region\":\"sudEsTe\",\r\n    \"population\":\"99999999\",\r\n    \"capital\":\"Capital Wasteland\",\r\n    \"area\":\"800000\"\r\n}"
+					"raw": "{\r\n    \"name\":\"ABC\",\r\n    \"region\":\"sudEsTe\",\r\n    \"population\":\"99999999\",\r\n    \"capital\":\"Capital Wasteland\",\r\n    \"area\":\"5\"\r\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/states",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"states"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Falha ao criar estado com nome duplicado",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept-Language",
+						"value": "pt-BR",
+						"description": "Receber em Português",
+						"type": "default"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "Requisições em Json",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\":\"ABC\",\r\n    \"region\":\"sudEsTe\",\r\n    \"population\":\"99999999\",\r\n    \"capital\":\"Capital Wasteland\",\r\n    \"area\":\"5\"\r\n}"
 				},
 				"url": {
 					"raw": "http://localhost:8080/api/states",
@@ -168,7 +205,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://localhost:8080/api/states?region=noRte",
+					"raw": "http://localhost:8080/api/states?region=nOrte",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -181,7 +218,7 @@
 					"query": [
 						{
 							"key": "region",
-							"value": "noRte"
+							"value": "nOrte"
 						}
 					]
 				}

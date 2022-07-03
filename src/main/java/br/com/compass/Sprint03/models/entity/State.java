@@ -70,4 +70,6 @@ public class State {
     public int getArea() {
         return area;
     }
+
+
 }
