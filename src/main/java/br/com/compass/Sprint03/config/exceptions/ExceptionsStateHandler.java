@@ -1,7 +1,6 @@
 package br.com.compass.Sprint03.config.exceptions;
 
 import br.com.compass.Sprint03.models.dto.ExceptionDto;
-import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
